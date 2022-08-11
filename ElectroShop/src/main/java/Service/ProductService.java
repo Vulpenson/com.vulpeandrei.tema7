@@ -7,7 +7,6 @@ import Repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,7 +53,14 @@ public class ProductService {
         productRepository.findById(id).get().setDeleted(true);
     }
 
-    public void updateProductStock(Integer id, String typeOfUpdate) {
+    public Product updateProductStock(Integer id, String typeOfUpdate, Integer value) {
         Product tmp = productRepository.findById(id).get();
+        int initialValue = tmp.getInitialStock().get();
+        if (typeOfUpdate.equals("plus")) {
+            tmp.getInitialStock().set(initialValue + value);
+        } else {
+            tmp.getInitialStock().set(initialValue - value);
+        }
+        return productRepository.save(tmp);
     }
 }
