@@ -18,11 +18,7 @@ public class ProductService {
 
     public List<Product> getNonDeletedProducts() {
         List<Product> tmp = productRepository.findAll();
-        for (Product product: tmp) {
-            if(!product.getDeleted()) {
-                tmp.remove(product);
-            }
-        }
+        tmp.removeIf(product -> !product.getDeleted());
         return tmp;
     }
 
@@ -61,6 +57,18 @@ public class ProductService {
         } else {
             tmp.getInitialStock().set(initialValue - value);
         }
+        return productRepository.save(tmp);
+    }
+
+    public Product incrementProduct(Integer id) {
+        Product tmp = productRepository.findById(id).get();
+        tmp.getInitialStock().incrementAndGet();
+        return productRepository.save(tmp);
+    }
+
+    public Product decrementProduct(Integer id) {
+        Product tmp = productRepository.findById(id).get();
+        tmp.getInitialStock().decrementAndGet();
         return productRepository.save(tmp);
     }
 }
