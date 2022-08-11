@@ -16,13 +16,13 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public List<Product> getNonDeletedProducts() {
+    public List<Product> getUndeletedProducts() {
         List<Product> tmp = productRepository.findAll();
         tmp.removeIf(product -> !product.getDeleted());
         return tmp;
     }
 
-    public List<ProductDTO> getNonDeletedProductsDTO() {
+    public List<ProductDTO> getUndeletedProductsDTO() {
         return productRepository.findAll().stream()
                 .filter(x -> !x.getDeleted())
                 .map(productMapper::toProductDTO)
@@ -54,7 +54,8 @@ public class ProductService {
         int initialValue = tmp.getInitialStock().get();
         if (typeOfUpdate.equals("plus")) {
             tmp.getInitialStock().set(initialValue + value);
-        } else {
+        }
+        if (typeOfUpdate.equals("minus")){
             tmp.getInitialStock().set(initialValue - value);
         }
         return productRepository.save(tmp);
