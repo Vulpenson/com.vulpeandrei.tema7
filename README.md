@@ -25,6 +25,4 @@ The project contains the packages:
 - Model
 - Repository
 - Service
-
-
- 
+-------------------------------------------------------------------------------
