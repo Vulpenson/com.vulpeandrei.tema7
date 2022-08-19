@@ -17,19 +17,19 @@ service.
 #### FIRST STAGE:
 
 Requirements:
-• Add a new product (name, id, initial stock)
-• Delete a product (soft deletion)
-• Get all products 
-• Get all products (even the deleted products)
-• Update the stock (supplementing or decreasing the stock)
-• Increment the stock by 1 
-• Decrement the stock by 1 
+- Add a new product (name, id, initial stock)
+- Delete a product (soft deletion)
+- Get all products 
+- Get all products (even the deleted products)
+- Update the stock (supplementing or decreasing the stock)
+- Increment the stock by 1 
+- Decrement the stock by 1 
 
 #### SECOND STAGE:
 
 Requirements:
-• Unit test for each controller (at least one method)
-• Unit test for each service (at least one method)
+- Unit test for each controller (at least one method)
+- Unit test for each service (at least one method)
 -------------------------------------------------------------------------------
 #### Implementation:
 #### The project contains the packages (FIRST STAGE):
