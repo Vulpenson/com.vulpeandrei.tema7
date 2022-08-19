@@ -22,6 +22,9 @@ public class Product {
     Integer id;
 
     @NotNull
+    String name;
+
+    @NotNull
     AtomicInteger initialStock;
 
     @NotNull

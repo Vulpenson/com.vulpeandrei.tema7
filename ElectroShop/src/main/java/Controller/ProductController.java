@@ -1,6 +1,7 @@
 package Controller;
 
 import DTO.ProductDTO;
+import Exception.InsufficientStockException;
 import Model.Product;
 import Service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -67,7 +68,7 @@ public class ProductController {
 
     // Method to decrement a product stock
     @PutMapping("update/{id}/decrement")
-    public Product decrementProduct(@PathVariable Integer id) {
+    public Product decrementProduct(@PathVariable Integer id) throws InsufficientStockException {
         return productService.decrementProductStock(id);
     }
 }

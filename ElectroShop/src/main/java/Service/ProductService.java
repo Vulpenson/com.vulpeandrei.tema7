@@ -1,6 +1,7 @@
 package Service;
 
 import DTO.ProductDTO;
+import Exception.InsufficientStockException;
 import Mapper.ProductMapper;
 import Model.Product;
 import Repository.ProductRepository;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,33 +50,50 @@ public class ProductService {
 
     // Method to delete a product by id
     public void deleteProduct(Integer id) {
-        productRepository.findById(id).get().setDeleted(true);
+        Optional<Product> tmpOptional = productRepository.findById(id);
+        if(tmpOptional.isEmpty()) {
+            return;
+        }
+        tmpOptional.get().setDeleted(true);
     }
 
     // Method to update a product stock (minus, plus)
     public Product updateProductStock(Integer id, String typeOfUpdate, Integer value) {
-        Product tmp = productRepository.findById(id).get();
-        int initialValue = tmp.getInitialStock().get();
+        Optional<Product> tmp = productRepository.findById(id);
+        if(tmp.isEmpty()) {
+            return null;
+        }
+        int initialValue = tmp.get().getInitialStock().get();
         if (typeOfUpdate.equals("plus")) {
-            tmp.getInitialStock().set(initialValue + value);
+            tmp.get().getInitialStock().set(initialValue + value);
         }
         if (typeOfUpdate.equals("minus")){
-            tmp.getInitialStock().set(initialValue - value);
+            tmp.get().getInitialStock().set(initialValue - value);
         }
-        return productRepository.save(tmp);
+        return productRepository.save(tmp.get());
     }
 
     // Method to increment a product stock
     public Product incrementProductStock(Integer id) {
-        Product tmp = productRepository.findById(id).get();
-        tmp.getInitialStock().incrementAndGet();
-        return productRepository.save(tmp);
+        Optional<Product> tmpOptional = productRepository.findById(id);
+        if(tmpOptional.isEmpty()) {
+            return null;
+        }
+        tmpOptional.get().getInitialStock().incrementAndGet();
+        return productRepository.save(tmpOptional.get());
     }
 
     // Method to decrement a product stock
-    public Product decrementProductStock(Integer id) {
-        Product tmp = productRepository.findById(id).get();
-        tmp.getInitialStock().decrementAndGet();
-        return productRepository.save(tmp);
+    public Product decrementProductStock(Integer id) throws InsufficientStockException {
+        Optional<Product> tmpOptional = productRepository.findById(id);
+        if(tmpOptional.isEmpty()) {
+            return null;
+        }
+        if(tmpOptional.get().getInitialStock().get() == 0) {
+            throw new InsufficientStockException();
+        } else {
+            tmpOptional.get().getInitialStock().decrementAndGet();
+            return productRepository.save(tmpOptional.get());
+        }
     }
 }
