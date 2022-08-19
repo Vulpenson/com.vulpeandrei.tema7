@@ -11,8 +11,8 @@ database).
 
 #### SECOND STAGE: 
 
-The goal of this homework is to implement unit test for each 
-controller and service. 
+The goal of this homework is to implement unit test for each controller and 
+service. 
 -------------------------------------------------------------------------------
 #### FIRST STAGE:
 
