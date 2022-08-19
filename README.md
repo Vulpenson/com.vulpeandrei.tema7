@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------
 #### FIRST STAGE: 
 
-The goal of this homework is to implement a small API for handling 
+    The goal of this homework is to implement a small API for handling 
 products in a store. In the app you can store products, each one of them having 
 a name, a type (ELB, ELG, ELC) and a stock. Also, each product has a deleted 
 field for doing a soft deletion (not deleting the product from the database but 
@@ -11,7 +11,7 @@ database).
 
 #### SECOND STAGE: 
 
-The goal of this homework is to implement unit test for each controller and 
+    The goal of this homework is to implement unit test for each controller and 
 service. 
 -------------------------------------------------------------------------------
 #### FIRST STAGE:
